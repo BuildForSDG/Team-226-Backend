@@ -5,17 +5,19 @@ A one-liner phrase describing this project or app
 
 ## About
 
-What is this project about. Ok to enrich here or the section above it with an image. 
+We are building a solution which solves the problem of hunger by addressing needs of farmers and other players in the agric section
 
-Once this repo has been setup on Codacy by the TTL, replace the above badge with the actual one from the Codacy dashboard, and add the code coverage badge as well. This is mandatory
+_Once this repo has been setup on Codacy by the TTL, replace the above badge with the actual one from the Codacy dashboard, and add the code coverage badge as well. This is mandatory_
 
-This is a simple python starter repo template for setting up your project. The setup contains:
+This is a django project setup with both pip and poetry
 
 - install: poetry via pip. poetry is a dependecy manager.
 
 - poetry: configuration in pyproject.toml
 
 - flake8: for linting and formatting
+
+- black: for formatting the code following PEP 8 guidelines
 
 ## Why
 
@@ -37,7 +39,7 @@ You should have **Python 3.5+** and **git** installed.
 2. Change into repo directory
 
     ``
-    cd python-starter
+    cd <repo_name>
     ``
 
 3. Install poetry, a dependecy manager for python.
@@ -77,7 +79,7 @@ You should have **Python 3.5+** and **git** installed.
     poetry install
     ``
 
-    This will install pytest for running tests and flake8, linter for your project.
+    This will install all the dependencies for running the project including pytest for running tests and flake8, linter for your project.
 
 #### To Note
 `src/app.py` is the entry to the project and source code should go into the `src` folder.
@@ -86,14 +88,27 @@ All tests should be written in the `tests` folder. tests/test_src.py is a sample
 
 #### Hints
 
-- Lint: `poetry run flake8`
-- Run tests using the command: `poetry run pytest`
+- Lint: 
+  `poetry run flake8`
+  `flake8 `
+- Run tests using the command: 
+  `poetry run pytest`
+  `pytest test`
+- Reformat the code to meet PEP8 conv
+  `poetry run black .`
+  `black .`
+- Setup virtualenv for pip:
+  `virtualenv venv`
+- Activate the virtual env:
+  `. venv/bin/activate`
 - Install dependencies: 
   `poetry add <dependency>`
+  `pip install -r requirements.txt`
 - Install dev dependencies:
   `poetry add --dev <dev-dependency>`
 - Run your project:
   `poetry run app`
+  `python manage.py runserver`
 
 
 ## Authors
