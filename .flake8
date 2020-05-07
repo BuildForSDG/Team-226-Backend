@@ -1,5 +1,6 @@
 [flake8]
 
+# there's nothing interesting in these files
 exclude =
   .pytest_cache
   .DS_Store
@@ -17,5 +18,11 @@ exclude =
   .github
   tests/fixtures/
   tests/utils/fixtures/
+  .env
+  venv
+
+# sometimes lines should be too long
+# for example with urls, paths etc...
+ignore = E501
 
 max-complexity = 10
