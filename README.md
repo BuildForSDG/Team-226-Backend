@@ -42,7 +42,19 @@ You should have **Python 3.5+** and **git** installed.
     cd <repo_name>
     ``
 
-3. Install poetry, a dependecy manager for python.
+3. Setup virtual env, activate it, install dependencies and setup environment variables
+    ``
+    virtualenv venv
+
+    . venv/bin/activate
+
+    pip install -r requirements.txt
+
+    cp .env.sample .env
+
+    ``
+
+4. Install poetry, a dependecy manager for python.
 
     On windows, you will need powershell to install it:
 
@@ -73,7 +85,7 @@ You should have **Python 3.5+** and **git** installed.
     poetry self update
     ``
 
-4. With poetry installed, you should install project dependecies by running:
+5. With poetry installed, you should install project dependecies by running:
 
     ``
     poetry install

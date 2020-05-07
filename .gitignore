@@ -9,3 +9,4 @@
 src.egg-info
 venv
 zero_hunger.egg-info
+.env
