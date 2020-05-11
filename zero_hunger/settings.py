@@ -22,10 +22,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config("SECRET_KEY")
+SECRET_KEY = config("SECRET_KEY", "secret")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config("DEBUG")
+DEBUG = config("DEBUG", False)
 
 ALLOWED_HOSTS = []
 
@@ -39,7 +39,11 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    # added
     "rest_framework",
+    # custom
+    "users",
+    "resources",
 ]
 
 MIDDLEWARE = [
@@ -86,6 +90,11 @@ DATABASES = {
         "PORT": config("DB_PORT"),
     }
 }
+
+#  Custom user model
+# https://docs.djangoproject.com/en/3.0/topics/auth/customizing/#using-a-custom-user-model-when-starting-a-project
+
+AUTH_USER_MODEL = "users.User"
 
 
 # Password validation
