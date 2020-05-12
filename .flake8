@@ -23,6 +23,6 @@ exclude =
 
 # sometimes lines should be too long
 # for example with urls, paths etc...
-ignore = E501
+ignore = E501, E231
 
 max-complexity = 10
