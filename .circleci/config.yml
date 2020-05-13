@@ -1,0 +1,57 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/python:3.7
+
+    steps:
+      # 1. Checkout to the working directory
+      - checkout
+
+      # 2. Try to restore dependences for faster build
+      - restore_cache:
+          key: deps10-{{ .Branch }}-{{ checksum "poetry.lock" }}
+
+      # 3. Install Poetry
+      - run:
+          name: Install Poetry
+          command: |
+            sudo pip install poetry
+
+      # 4. Install the project dependencies
+      - run:
+          name: Install Dependences
+          command: |
+            poetry install
+
+      # 5. Save dependencies
+      - save_cache:
+          key: deps10-{{ .Branch }}-{{ checksum "poetry.lock" }}
+          paths:
+            - '/home/circleci/.cache/pypoetry/virtualenvs'
+            - '/usr/local/bin'
+            - '/usr/local/lib/python3.7/site-packages'
+
+      # 6. Run isort
+      - run:
+          name: Run isort
+          command: |
+            poetry run isort .
+
+      # 7. Run black
+      - run:
+          name: Run black
+          command: |
+            poetry run black .
+
+      # 8. Run flake8
+      - run:
+          name: Run flake8
+          command: |
+            poetry run flake8
+
+      # 9. Run tests
+      - run:
+          name: Run Pytest, report coverage
+          command: |
+            poetry run coverage run --omit="/home/circleci/.cache/pypoetry/virtualenvs" -m pytest
