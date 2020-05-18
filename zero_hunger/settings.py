@@ -109,14 +109,13 @@ AUTH_USER_MODEL = "users.User"
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
 
+# creating this solve avoid flake8 line too long rule
+BASE_PASS_VAL_MODULE = "django.contrib.auth.password_validation."
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        "NAME": "django.contrib.auth.\
-            password_validation.UserAttributeSimilarityValidator"
-    },
-    {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator"},
-    {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator"},
-    {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
+    {"NAME": BASE_PASS_VAL_MODULE + "UserAttributeSimilarityValidator"},
+    {"NAME": BASE_PASS_VAL_MODULE + "MinimumLengthValidator"},
+    {"NAME": BASE_PASS_VAL_MODULE + "CommonPasswordValidator"},
+    {"NAME": BASE_PASS_VAL_MODULE + "NumericPasswordValidator"},
 ]
 
 
