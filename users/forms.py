@@ -9,11 +9,15 @@ class UserCreationForm(UserCreationForm):
         fields = (
             "email",
             "username",
-            "phone_number",
-            "profile_photo",
+            "is_superuser",
+            "first_name",
+            "last_name",
             "street",
             "city",
             "country",
+            "profile_photo",
+            "phone_number",
+            "pref_contact_method",
         )
 
 
@@ -23,9 +27,13 @@ class UserChangeForm(UserChangeForm):
         fields = (
             "email",
             "username",
-            "phone_number",
-            "profile_photo",
+            "is_superuser",
+            "first_name",
+            "last_name",
             "street",
             "city",
             "country",
+            "profile_photo",
+            "phone_number",
+            "pref_contact_method",
         )
