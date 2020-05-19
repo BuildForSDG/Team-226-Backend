@@ -16,8 +16,8 @@ class User(AbstractUser):
     email = models.EmailField(_("email address"), max_length=255, unique=True)
     username = models.CharField(max_length=150, blank=True)
     phone_number = models.CharField(max_length=80, blank=True)
-    profile_photo = models.CharField(
-        verbose_name="Profile picture", max_length=80, blank=True
+    profile_photo = models.FileField(
+        verbose_name="Profile picture", upload_to="user_photos/", blank=True
     )
     street = models.CharField(max_length=150, blank=True)
     city = models.CharField(max_length=150, blank=True)
@@ -42,6 +42,9 @@ class User(AbstractUser):
     REQUIRED_FIELDS = []
 
     objects = UserManager()
+
+    class Meta:
+        ordering = ["email"]
 
     def __str__(self):
         return "%s, %s" % (self.last_name, self.first_name)
