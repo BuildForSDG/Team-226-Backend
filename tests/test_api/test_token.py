@@ -4,19 +4,21 @@ from rest_framework.test import APITestCase
 
 # test the user registration endpoint
 class TestTokenAPI(APITestCase):
+
+    data = {
+        "email": "test@test.com",
+        "password": "secret",
+        "password2": "secret",
+        "first_name": "test",
+        "last_name": "user",
+    }
+
     def setUp(self):
-        # create a new user making a post request to djoser endpoint
-        self.data = {
-            "email": "test@test.com",
-            "password": "secret",
-            "password2": "secret",
-        }
-        self.client.post("/api/auth/register/", data=self.data)
+        # create a new user making a post request to register endpoint
+        data = self.data
+        self.client.post("/api/auth/register/", data=data)
 
-        # clean the second password
-        del self.data["password2"]
-
-        response = self.client.post("/api/auth/token/", data=self.data)
+        response = self.client.post("/api/auth/token/", data=data)
         self.access_token = response.data["access"]
         self.refresh_token = response.data["refresh"]
 

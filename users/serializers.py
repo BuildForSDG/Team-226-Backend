@@ -16,6 +16,7 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = [
+            "id",
             "email",
             "username",
             "is_superuser",
@@ -35,15 +36,12 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class UserSerializerWithToken(serializers.ModelSerializer):
-    password = serializers.CharField(write_only=True)
     password = serializers.CharField(
         write_only=True, required=True, style={"input_type": "password"}
     )
     password2 = serializers.CharField(
         style={"input_type": "password"}, write_only=True, label="Confirm password"
     )
-    profile_photo = serializers.CharField(required=False)
-    token = serializers.SerializerMethodField()
 
     def get_token(self, object):
         jwt_payload_handler = settings.JWT_PAYLOAD_HANDLER
@@ -68,25 +66,20 @@ class UserSerializerWithToken(serializers.ModelSerializer):
         user = User.objects.create(**validated_data)
         user.set_password(validated_data["password"])
         user.save()
+
+        # update the username
+        user.make_username()
         return user
 
     class Meta:
         model = User
         fields = [
+            "id",
             "email",
-            "token",
-            "username",
             "password",
             "password2",
-            "is_superuser",
             "first_name",
             "last_name",
-            "street",
-            "city",
-            "country",
-            "profile_photo",
-            "phone_number",
-            "pref_contact_method",
         ]
         extra_kwargs = {
             "password": {"write_only": True},
