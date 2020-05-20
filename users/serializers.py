@@ -53,7 +53,6 @@ class UserSerializerWithToken(serializers.ModelSerializer):
         return token
 
     def create(self, validated_data):
-        print(validated_data)
         email = validated_data["email"]
         password = validated_data["password"]
         password2 = validated_data["password2"]

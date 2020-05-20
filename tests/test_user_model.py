@@ -134,5 +134,4 @@ class UserModelTest(TestCase):
 
     def test_user_categories(self):
         user = User.objects.first()
-        print(user.pref_categories.all())
         assert user.pref_categories.all() is not None

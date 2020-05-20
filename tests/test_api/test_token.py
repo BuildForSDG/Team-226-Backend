@@ -47,6 +47,5 @@ class TestTokenAPI(APITestCase):
         """
         data = {"token": self.access_token}
         response = self.client.post("/api/auth/token/verify/", data)
-        print(response.data)
         assert response.status_code == status.HTTP_200_OK
         assert response.data == {}

@@ -22,7 +22,6 @@ class TestUserAPI(APITestCase):
             "password2": "secret",
         }
         self.user = self.client.post("/api/auth/register/", data=self.data)
-        print(self.user)
 
         # obtain a json web token for the newly created user
         del self.data["password2"]
