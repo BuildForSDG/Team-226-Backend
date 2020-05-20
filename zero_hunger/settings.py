@@ -28,7 +28,13 @@ SECRET_KEY = config("SECRET_KEY", default="secret")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config("DEBUG", default=False)
 
-ALLOWED_HOSTS = ["https://farmvoice.herokuapp.com/"]
+ALLOWED_HOSTS = [
+    "farmvoice.herokuapp.com",
+    "*.herokuapp.com",
+    "localhost",
+    "127.0.0.1",
+    "[::1]",
+]
 
 
 # Application definition
