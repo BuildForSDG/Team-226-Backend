@@ -60,7 +60,8 @@ class CreateUserView(APIView):
             return Response(serializer.errors, status.HTTP_400_BAD_REQUEST)
 
         user = serializer.save()
-        user_data["username"] = user.username
+        user_data = dict(user_data)
+        user_data.update({"username": user.username})
         return Response(
             {
                 "response": "success",

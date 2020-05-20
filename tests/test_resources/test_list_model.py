@@ -33,7 +33,6 @@ class ListModelTest(TestCase):
     def test_title_max_length(self):
         list = List.objects.first()
         max_length = list._meta.get_field("title").max_length
-        print(max_length)
         assert max_length == 255
 
     def test_object_title_is_valid(self):
@@ -59,5 +58,4 @@ class ListModelTest(TestCase):
     def test_visibility_max_length(self):
         list = List.objects.first()
         max_length = list._meta.get_field("visibility").max_length
-        print(max_length)
         assert max_length == 30

@@ -20,9 +20,10 @@ class TestUserAPI(APITestCase):
             "email": "test@test.com",
             "password": "secret",
             "password2": "secret",
+            "first_name": "test",
+            "last_name": "user",
         }
         self.user = self.client.post("/api/auth/register/", data=self.data)
-        print(self.user)
 
         # obtain a json web token for the newly created user
         del self.data["password2"]
@@ -74,7 +75,7 @@ class TestUserAPI(APITestCase):
 
         self.data = {
             "email": "test1@test.com",
-            "username": "test",
+            "username": "test1-user1",
             "street": "Malingo",
             "city": "Buea",
             "country": "Cameroon",
@@ -86,6 +87,7 @@ class TestUserAPI(APITestCase):
             "pref_contact_method": "PH",
         }
         response = self.client.put(url, data=self.data)
+        self.data.update({"id": response.data["id"]})
         assert response.status_code == status.HTTP_200_OK
         assert response.data == self.data
 
