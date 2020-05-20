@@ -51,3 +51,8 @@ class User(AbstractUser):
 
     def get_absolute_url(self):
         return "/users/user/%s" % self.username
+
+    def make_username(self):
+        self.username = self.first_name + "-" + self.last_name + str(self.pk)
+        self.save()
+        return self.username

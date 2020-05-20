@@ -1,3 +1,4 @@
+from django.core import serializers
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework import mixins, permissions, status, viewsets
 from rest_framework.parsers import MultiPartParser
@@ -35,12 +36,11 @@ class CreateUserView(APIView):
     """
 
     permission_classes = (permissions.AllowAny,)
-    parser_classes = (MultiPartParser,)
     response = '{"response": "success", "message": "user created succesfully"}'
 
     @swagger_auto_schema(
         request_body=UserSerializerWithToken,
-        query_serializer=UserSerializer,
+        query_serializer=UserSerializerWithToken,
         responses={"200": response, "400": "Bad Request"},
         security=[],
         operation_id="auth_create_user",
@@ -51,13 +51,20 @@ class CreateUserView(APIView):
         """,
     )
     def post(self, request):
-        user = request.data
-        if not user:
+        user_data = request.data
+        if not user_data:
             return Response({"response": "error", "message": "No data found"})
 
-        serializer = UserSerializerWithToken(data=user)
+        serializer = UserSerializerWithToken(data=user_data)
         if not serializer.is_valid():
             return Response(serializer.errors, status.HTTP_400_BAD_REQUEST)
 
-        serializer.save()
-        return Response({"response": "success", "message": "user created succesfully"})
+        user = serializer.save()
+        user_data["username"] = user.username
+        return Response(
+            {
+                "response": "success",
+                "message": "user created succesfully",
+                "data": user_data,
+            }
+        )
