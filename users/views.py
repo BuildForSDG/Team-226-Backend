@@ -1,4 +1,3 @@
-from django.core import serializers
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework import mixins, permissions, status, viewsets
 from rest_framework.parsers import MultiPartParser
