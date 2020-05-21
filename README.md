@@ -1,13 +1,11 @@
 A one-liner phrase describing this project or app
 
-[![Codacy Badge](https://img.shields.io/badge/Code%20Quality-D-red)](https://img.shields.io/badge/Code%20Quality-D-red)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/264f6e889f5c4493a4a6a5ed439c24da)](https://app.codacy.com/gh/BuildForSDG/Team-226-Backend?utm_source=github.com&utm_medium=referral&utm_content=BuildForSDG/Team-226-Backend&utm_campaign=Badge_Grade_Settings)
 
 
 ## About
 
 We are building a solution which solves the problem of hunger by addressing needs of farmers and other players in the agric section
-
-_Once this repo has been setup on Codacy by the TTL, replace the above badge with the actual one from the Codacy dashboard, and add the code coverage badge as well. This is mandatory_
 
 This is a django project setup with both pip and poetry
 
