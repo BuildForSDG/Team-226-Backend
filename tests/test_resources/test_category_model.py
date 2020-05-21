@@ -17,7 +17,6 @@ class CategoryModelTest(TestCase):
     def test_name_max_length(self):
         category = Category.objects.first()
         max_length = category._meta.get_field("name").max_length
-        print(max_length)
         assert max_length == 155
 
     def test_slug_label(self):
@@ -28,7 +27,6 @@ class CategoryModelTest(TestCase):
     def test_slug_max_length(self):
         category = Category.objects.first()
         max_length = category._meta.get_field("slug").max_length
-        print(max_length)
         assert max_length == 255
 
     def test_object_name_is_valid(self):
