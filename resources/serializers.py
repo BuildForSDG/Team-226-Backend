@@ -156,6 +156,7 @@ class ListPostSerializer(serializers.ModelSerializer):
 
 class ListPostSerializerForDocs(serializers.ModelSerializer):
     class Meta(ListPostSerializer.Meta):
+
         """DOC STRING"""
 
         fields = None
