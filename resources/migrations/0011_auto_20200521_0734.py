@@ -19,7 +19,7 @@ class Migration(migrations.Migration):
             model_name="list",
             name="cover_image",
             field=models.ImageField(
-                null=True, upload_to="", verbose_name="Cover image"
+                blank=True, upload_to="", verbose_name="Cover image"
             ),
         ),
         migrations.CreateModel(

@@ -26,6 +26,7 @@ from resources.serializers import (
 
 
 class LandListCreate(generics.ListCreateAPIView):
+
     """API endpoint that allows users to create and view list of lands"""
 
     response = '{"response": "success", "message": "land created succesfully"}'
@@ -56,9 +57,8 @@ class LandListCreate(generics.ListCreateAPIView):
 
 
 class CategoryListCreate(generics.ListCreateAPIView):
-    """
-    API endpoint that allows users to create and view list of categories
-    """
+
+    """API endpoint that allows users to create and view list of categories"""
 
     response = '{"response": "success", "message": "category created succesfully"}'
     serializer_class = CategorySerializer
@@ -195,9 +195,7 @@ class UploadImages(generics.GenericAPIView):
 
 @api_view(["GET"])
 def get_user_land_list(request):
-    """
-        GET ALL LANDS POSTED BY A USER
-    """
+    """GET ALL LANDS POSTED BY A USER"""
     serializer = LandSerializer(
         instance=Land.objects.get_all_lands(request.user.id), many=True,
     )
@@ -206,9 +204,7 @@ def get_user_land_list(request):
 
 @api_view(["GET"])
 def get_user_post_list(request):
-    """
-        GET ALL POST CREATED BY A USER
-    """
+    """ GET ALL POST CREATED BY A USER """
     serializer = PostSerializer(
         instance=Post.objects.get_all_posts(request.user.id), many=True,
     )
@@ -217,9 +213,7 @@ def get_user_post_list(request):
 
 @api_view(["GET"])
 def get_user_listing_list(request):
-    """
-        GET ALL LISTINGS CREATED BY A USER
-    """
+    """GET ALL LISTINGS CREATED BY A USER"""
     serializer = ListSerializer(
         instance=List.objects.get_all_posts(request.user.id), many=True,
     )
@@ -227,9 +221,8 @@ def get_user_listing_list(request):
 
 
 class PostListCreate(generics.ListCreateAPIView):
-    """
-        API endpoint that allows users to create and get list of posts
-    """
+
+    """API endpoint that allows users to create and get list of posts"""
 
     response = '{"response": "success", "message": "post created succesfully"}'
     serializer_class = PostSerializer
@@ -238,9 +231,7 @@ class PostListCreate(generics.ListCreateAPIView):
         return Post.objects.get_all_posts(self.request.data.get("created_by"))
 
     def get(self, request, *args, **kwargs):
-        """
-        GET all post created by all users
-        """
+        """ GET all post created by all users """
         return super(PostListCreate, self).get(request, *args, **kwargs)
 
     @swagger_auto_schema(
@@ -259,9 +250,7 @@ class PostListCreate(generics.ListCreateAPIView):
 
 
 class ListingsListCreate(generics.ListCreateAPIView):
-    """
-        API endpoint that allows users to create and get list of listings
-    """
+    """API endpoint that allows users to create and get list of listings"""
 
     response = '{"response": "success", "message": "post created succesfully"}'
     serializer_class = ListSerializer
@@ -270,9 +259,7 @@ class ListingsListCreate(generics.ListCreateAPIView):
         return List.objects.get_all_lists(self.request.data.get("created_by"))
 
     def get(self, request, *args, **kwargs):
-        """
-        GET all list created by all users
-        """
+        """GET all list created by all users"""
         return super(ListingsListCreate, self).get(request, *args, **kwargs)
 
     @swagger_auto_schema(
@@ -291,7 +278,8 @@ class ListingsListCreate(generics.ListCreateAPIView):
 
 
 class ListAddPost(generics.CreateAPIView):
-    """ API endpoint that allows users to add his post to a listing """
+
+    """API endpoint that allows users to add his post to a listing"""
 
     serializer_class = ListPostSerializer
     response = '{"response": "success", "message": "post add to list succesfully"}'

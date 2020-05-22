@@ -35,7 +35,7 @@ class Migration(migrations.Migration):
                     ("y", "yearly"),
                 ],
                 max_length=10,
-                null=True,
+                blank=True,
                 verbose_name="Lease Rate Periodicity",
             ),
         ),
