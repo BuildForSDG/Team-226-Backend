@@ -11,7 +11,7 @@ venv
 zero_hunger.egg-info
 .env
 media
-
+.idea
 # Unit test / coverage reports
 htmlcov/
 .tox/

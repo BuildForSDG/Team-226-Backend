@@ -10,6 +10,8 @@ class TestAuthAPI(APITestCase):
             "email": "test@test.com",
             "password": "secret",
             "password2": "secret",
+            "first_name": "test",
+            "last_name": "user",
         }
         self.user = self.client.post("/api/auth/register/", data=self.data)
 
@@ -28,8 +30,9 @@ class TestAuthAPI(APITestCase):
             "email": "test2@test.com",
             "password": "secret",
             "password2": "secret",
+            "first_name": "test",
+            "last_name": "user",
         }
         response = self.client.post("/api/auth/register/", data)
-        response_data = {"response": "success", "message": "user created succesfully"}
         assert response.status_code == status.HTTP_200_OK
-        assert response.data == response_data
+        assert response.data["response"] == "success"

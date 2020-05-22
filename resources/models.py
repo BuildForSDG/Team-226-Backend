@@ -27,12 +27,14 @@ class Category(models.Model):
         ordering = ["name"]
         verbose_name_plural = "Categories"
 
-    def save(self, force_insert=False, force_update=False, using=None,
-             update_fields=None):
+    def save(
+        self, force_insert=False, force_update=False, using=None, update_fields=None
+    ):
         if not self.slug:
             self.slug = self.name
-        super(Category, self).save(force_insert=False, force_update=False, using=None,
-             update_fields=None)
+        super(Category, self).save(
+            force_insert=False, force_update=False, using=None, update_fields=None
+        )
 
     def __str__(self):
         return self.name

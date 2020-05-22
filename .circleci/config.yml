@@ -9,8 +9,9 @@ jobs:
       - checkout
 
       # 2. Try to restore dependences for faster build
-      - restore_cache:
-          key: deps10-{{ .Branch }}-{{ checksum "poetry.lock" }}
+      # I am going to comment this step out for now, since it fails on CircleCI
+      # - restore_cache:
+      #     key: deps10-{{ .Branch }}-{{ checksum "poetry.lock" }}
 
       # 3. Install Poetry
       - run:
@@ -28,9 +29,7 @@ jobs:
       - save_cache:
           key: deps10-{{ .Branch }}-{{ checksum "poetry.lock" }}
           paths:
-            - '/home/circleci/.cache/pypoetry/virtualenvs'
-            - '/usr/local/bin'
-            - '/usr/local/lib/python3.7/site-packages'
+            - "/home/circleci/.cache/pypoetry/virtualenvs"
 
       # 6. Run isort
       - run:
@@ -55,3 +54,9 @@ jobs:
           name: Run Pytest, report coverage
           command: |
             poetry run coverage run --omit="/home/circleci/.cache/pypoetry/virtualenvs" -m pytest
+
+workflows:
+  version: 2
+  build:
+    jobs:
+      - build

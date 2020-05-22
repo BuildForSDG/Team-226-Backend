@@ -36,7 +36,6 @@ class LandModelTest(TestCase):
     def test_title_max_length(self):
         land = Land.objects.first()
         max_length = land._meta.get_field("title").max_length
-        print(max_length)
         assert max_length == 255
 
     def test_object_title_is_valid(self):
@@ -49,6 +48,11 @@ class LandModelTest(TestCase):
         field_label = land._meta.get_field("cost").verbose_name
         assert field_label == "Cost of land"
 
+    def test_cost_max_length(self):
+        land = Land.objects.first()
+        max_length = land._meta.get_field("cost").max_length
+        assert max_length == 100
+
     def test_size_label(self):
         land = Land.objects.first()
         field_label = land._meta.get_field("size").verbose_name
@@ -59,12 +63,6 @@ class LandModelTest(TestCase):
         field_label = land._meta.get_field("size_unit_measurement").verbose_name
         assert field_label == "Land size measurement type"
 
-    def test_size_type_max_length(self):
-        land = Land.objects.first()
-        max_length = land._meta.get_field("size_unit_measurement").max_length
-        print(max_length)
-        assert max_length == 30
-
     def test_for_type_label(self):
         land = Land.objects.first()
         field_label = land._meta.get_field("for_type").verbose_name
@@ -73,7 +71,6 @@ class LandModelTest(TestCase):
     def test_for_type_max_length(self):
         land = Land.objects.first()
         max_length = land._meta.get_field("for_type").max_length
-        print(max_length)
         assert max_length == 30
 
     def test_location_label(self):
@@ -84,7 +81,6 @@ class LandModelTest(TestCase):
     def test_location_max_length(self):
         land = Land.objects.first()
         max_length = land._meta.get_field("location").max_length
-        print(max_length)
         assert max_length == 255
 
     def test_visibility_label(self):
@@ -95,5 +91,4 @@ class LandModelTest(TestCase):
     def test_visibility_max_length(self):
         land = Land.objects.first()
         max_length = land._meta.get_field("visibility").max_length
-        print(max_length)
         assert max_length == 30

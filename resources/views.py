@@ -73,7 +73,7 @@ class CategoryListCreate(generics.ListCreateAPIView):
         responses={"200": response, "400": "Bad Request"},
         security=[],
         operation_id="resource_create_category",
-        operation_description="""Create a Category"""
+        operation_description="""Create a Category""",
     )
     def post(self, request, *args, **kwargs):
         request.data._mutable = True
@@ -317,7 +317,7 @@ class ListDeletePost(APIView):
                                 Delete post from list
                                 """,
     )
-    def delete(request, *args, **kwargs):
+    def delete(self, request, *args, **kwargs):
         request.data._mutable = True
         request.data.update({"user": request.user.id})
         data = request.data

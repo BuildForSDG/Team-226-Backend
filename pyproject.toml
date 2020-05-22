@@ -24,6 +24,7 @@ django-rest-swagger = "^2.2.0"
 dj-rest-auth = "^1.0.5"
 djangorestframework-simplejwt = "^4.4.0"
 Pillow = "^7.1.2"
+whitenoise = "^5.1.0"
 
 
 [tool.poetry.dev-dependencies]

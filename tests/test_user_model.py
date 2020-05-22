@@ -127,14 +127,3 @@ class UserModelTest(TestCase):
         user = User.objects.first()
         field_label = user._meta.get_field("pref_contact_method").verbose_name
         assert field_label == "Preferential Contact Method"
-
-    #
-    # def test_pref_categories_label(self):
-    #     user = User.objects.first()
-    #     field_label = user._meta.get_field("pref_categories").verbose_name
-    #     assert field_label == "Preferential Categories"
-
-    # def test_user_categories(self):
-    #     user = User.objects.first()
-    #     print(user.pref_categories.all())
-    #     assert user.pref_categories.all() is not None

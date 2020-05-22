@@ -37,7 +37,6 @@ class PostModelTest(TestCase):
     def test_title_max_length(self):
         post = Post.objects.first()
         max_length = post._meta.get_field("title").max_length
-        print(max_length)
         assert max_length == 200
 
     def test_object_title_is_valid(self):
@@ -53,7 +52,6 @@ class PostModelTest(TestCase):
     def test_slug_max_length(self):
         category = Post.objects.first()
         max_length = category._meta.get_field("slug").max_length
-        print(max_length)
         assert max_length == 255
 
     def test_description_label(self):
@@ -74,7 +72,6 @@ class PostModelTest(TestCase):
     def test_visibility_max_length(self):
         post = Post.objects.first()
         max_length = post._meta.get_field("visibility").max_length
-        print(max_length)
         assert max_length == 30
 
     def test_post_user(self):

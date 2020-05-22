@@ -15,33 +15,33 @@ from resources.models import (
 
 
 class CategorySerializer(serializers.ModelSerializer):
-
     class Meta:
         """DOC STRING"""
+
         model = Category
         fields = ["name", "slug", "created_by"]
         read_only_fields = ["date_created", "date_updated"]
 
 
 class CategorySerializerForDocs(serializers.ModelSerializer):
-
     class Meta(CategorySerializer.Meta):
         """DOC STRING"""
+
         fields = ["name", "slug"]
 
 
 class UserCategorySerializer(serializers.ModelSerializer):
-
     class Meta:
         """DOC STRING"""
+
         model = UserCategory
         fields = "__all__"
 
 
 class LandSerializer(serializers.ModelSerializer):
-
     class Meta:
         """DOC STRING"""
+
         model = Land
         fields = [
             "id",
@@ -77,9 +77,9 @@ class LandSerializer(serializers.ModelSerializer):
 
 
 class LandSerializerForDocs(serializers.ModelSerializer):
-
     class Meta(LandSerializer.Meta):
         """DOC STRING"""
+
         import copy
 
         fields = copy.deepcopy(LandSerializer.Meta.fields)
@@ -87,59 +87,59 @@ class LandSerializerForDocs(serializers.ModelSerializer):
 
 
 class LandImageSerializer(serializers.ModelSerializer):
-
     class Meta:
         """DOC STRING"""
+
         model = LandImage
         fields = "__all__"
         read_only_fields = ["date_created", "date_updated"]
 
 
 class PostSerializer(serializers.ModelSerializer):
-
     class Meta:
         """DOC STRING"""
+
         model = Post
         fields = "__all__"
 
 
 class PostSerializerForDocs(serializers.ModelSerializer):
-
     class Meta(PostSerializer.Meta):
         """DOC STRING"""
+
         fields = None
         exclude = ["created_by"]
 
 
 class ListSerializer(serializers.ModelSerializer):
-
     class Meta:
         """DOC STRING"""
+
         model = List
         fields = "__all__"
 
 
 class ListSerializerForDocs(serializers.ModelSerializer):
-
     class Meta(ListSerializer.Meta):
         """DOC STRING"""
+
         fields = None
         exclude = ["created_by"]
 
 
 class PostImageSerializer(serializers.ModelSerializer):
-
     class Meta:
         """DOC STRING"""
+
         model = PostImage
         fields = "__all__"
         read_only_fields = ["date_created", "date_updated"]
 
 
 class ListPostSerializer(serializers.ModelSerializer):
-
     class Meta:
         """DOC STRING"""
+
         model = ListPost
         fields = "__all__"
 
@@ -155,8 +155,8 @@ class ListPostSerializer(serializers.ModelSerializer):
 
 
 class ListPostSerializerForDocs(serializers.ModelSerializer):
-
     class Meta(ListPostSerializer.Meta):
         """DOC STRING"""
+
         fields = None
         exclude = ["user"]
