@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from resources.models import Comment, Post
+from resources.models import Comment, Post, Category
 from users.models import User
 
 
@@ -16,14 +16,16 @@ class CommentModelTest(TestCase):
             password="secret",
         )
 
+        category = Category.objects.create(name="Global warming", created_by=user)
+
         # Set up non-modified objects used by all test methods
         post = Post.objects.create(
             title="Green housing farming intro chapter 1",
             slug="green_housing_farming_intro_chapter_1",
             description="my test post",
-            images="['test_post_image1.png', 'test_post_image2.png']",
             visibility="public",
-            user=user,
+            created_by=user,
+            category=category,
         )
 
         Comment.objects.create(

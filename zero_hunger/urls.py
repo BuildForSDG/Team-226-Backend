@@ -72,6 +72,10 @@ urlpatterns = [
         dra_views.PasswordResetConfirmView.as_view(),
         name="rest_password_reset_confirm",
     ),
+    path(
+        "api/resource/",
+        include(("resources.urls", "resources"), namespace="resources"),
+    ),
     # Api Doc endpoints
     re_path(
         r"^api/doc/swagger(?P<format>\.json|\.yaml)$",

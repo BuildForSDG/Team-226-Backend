@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from resources.models import Post
+from resources.models import Post, Category
 from users.models import User
 
 
@@ -16,14 +16,17 @@ class PostModelTest(TestCase):
             password="secret",
         )
 
+        # create a category
+        category = Category.objects.create(name="fertilizers", created_by=user)
+
         # Set up non-modified objects used by all test methods
         Post.objects.create(
             title="Green housing farming intro chapter 1",
             slug="green_housing_farming_intro_chapter_1",
             description="my test post",
-            images="['test_post_image1.png', 'test_post_image2.png']",
             visibility="public",
-            user=user,
+            created_by=user,
+            category=category,
         )
 
     def test_title_label(self):
@@ -58,11 +61,6 @@ class PostModelTest(TestCase):
         field_label = post._meta.get_field("description").verbose_name
         assert field_label == "Description of the post"
 
-    def test_images_label(self):
-        post = Post.objects.first()
-        field_label = post._meta.get_field("images").verbose_name
-        assert field_label == "Post images"
-
     def test_video_link_label(self):
         post = Post.objects.first()
         field_label = post._meta.get_field("video_link").verbose_name
@@ -81,4 +79,4 @@ class PostModelTest(TestCase):
 
     def test_post_user(self):
         post = Post.objects.first()
-        assert post.user.username == "bigbob"
+        assert post.created_by.username == "bigbob"

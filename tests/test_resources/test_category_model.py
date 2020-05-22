@@ -1,13 +1,15 @@
 from django.test import TestCase
 
 from resources.models import Category
+from users.models import User
 
 
 class CategoryModelTest(TestCase):
     @classmethod
     def setUpTestData(cls):
         # Set up non-modified objects used by all test methods
-        Category.objects.create(name="Green House", slug="green-house")
+        user = User.objects.create(email="bob@gmail.com", password="bob")
+        Category.objects.create(name="Green House", slug="green-house", created_by=user)
 
     def test_name_label(self):
         category = Category.objects.first()

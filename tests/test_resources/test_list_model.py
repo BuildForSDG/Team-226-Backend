@@ -20,9 +20,8 @@ class ListModelTest(TestCase):
         List.objects.create(
             title="Green housing farming intro",
             description="my test list",
-            cover_image="test_image.png",
             visibility="public",
-            user=user,
+            created_by=user,
         )
 
     def test_title_label(self):

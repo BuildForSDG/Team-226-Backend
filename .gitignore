@@ -10,6 +10,7 @@ src.egg-info
 venv
 zero_hunger.egg-info
 .env
+media
 
 # Unit test / coverage reports
 htmlcov/
