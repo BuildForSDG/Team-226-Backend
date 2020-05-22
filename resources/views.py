@@ -26,9 +26,7 @@ from resources.serializers import (
 
 
 class LandListCreate(generics.ListCreateAPIView):
-    """
-        API endpoint that allows users to create and view list of lands
-        """
+    """API endpoint that allows users to create and view list of lands"""
 
     response = '{"response": "success", "message": "land created succesfully"}'
     serializer_class = LandSerializer
@@ -79,9 +77,7 @@ class CategoryListCreate(generics.ListCreateAPIView):
         responses={"200": response, "400": "Bad Request"},
         security=[],
         operation_id="resource_create_category",
-        operation_description="""
-                Create a Category
-            """,
+        operation_description=""" Create a Category """
     )
     def post(self, request, *args, **kwargs):
         request.data._mutable = True
@@ -295,9 +291,7 @@ class ListingsListCreate(generics.ListCreateAPIView):
 
 
 class ListAddPost(generics.CreateAPIView):
-    """
-        API endpoint that allows users to add his post to a listing
-    """
+    """ API endpoint that allows users to add his post to a listing """
 
     serializer_class = ListPostSerializer
     response = '{"response": "success", "message": "post add to list succesfully"}'
@@ -326,9 +320,7 @@ class ListingsPost(generics.ListAPIView):
         return List.objects.get_all_post_in_list(self.kwargs["list_id"])
 
     def get(self, request, *args, **kwargs):
-        """
-        GET ALL POST IN A LIST
-        """
+        """GET ALL POST IN A LIST"""
         return super(ListingsPost, self).get(request, *args, **kwargs)
 
 
