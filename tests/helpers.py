@@ -136,7 +136,7 @@ class TestSetupData:
 
     @staticmethod
     def temporary_image():
-        """ Returns a new temporary image file """
+        """Returns a new temporary image file"""
         import tempfile
         from PIL import Image
 

@@ -67,6 +67,7 @@ class CreateUserView(APIView):
 
 
 class AddUserCategory(APIView):
+
     """
         API endpoint that allows users to add Categories to their list
     """
@@ -76,9 +77,7 @@ class AddUserCategory(APIView):
         responses={"200": "", "400": "Bad Request"},
         security=[],
         operation_id="auth_create_user",
-        operation_description="""
-                Add an existing category to a users category list
-            """,
+        operation_description="""Add an existing category to a users category list""",
     )
     def post(self, request):
         serializer = UserCategorySerializer(data=request.data)
@@ -92,8 +91,10 @@ class AddUserCategory(APIView):
 
 
 class DeleteUserCategory(mixins.DestroyModelMixin, generics.GenericAPIView):
+
     """
-        API endpoint that allows users to remove a category from a user's category list
+        API endpoint that allows users to remove a
+        category from a user's category list
     """
 
     def get_object(self):

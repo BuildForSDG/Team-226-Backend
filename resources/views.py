@@ -36,9 +36,7 @@ class LandListCreate(generics.ListCreateAPIView):
         return Land.objects.get_all_lands(self.request.data.get("owner"))
 
     def get(self, request, *args, **kwargs):
-        """
-        GET all lands posted by all users
-        """
+        """GET all lands posted by all users"""
         return super(LandListCreate, self).get(request, *args, **kwargs)
 
     @swagger_auto_schema(
@@ -67,9 +65,7 @@ class CategoryListCreate(generics.ListCreateAPIView):
         return Category.objects.get_all_categories(self.request.data.get("owner"))
 
     def get(self, request, *args, **kwargs):
-        """
-        GET all categories added by all users
-        """
+        """GET all categories added by all users"""
         return super(CategoryListCreate, self).get(request, *args, **kwargs)
 
     @swagger_auto_schema(
@@ -77,7 +73,7 @@ class CategoryListCreate(generics.ListCreateAPIView):
         responses={"200": response, "400": "Bad Request"},
         security=[],
         operation_id="resource_create_category",
-        operation_description=""" Create a Category """
+        operation_description="""Create a Category"""
     )
     def post(self, request, *args, **kwargs):
         request.data._mutable = True
@@ -99,9 +95,7 @@ class LandUpdateDelete(generics.RetrieveUpdateDestroyAPIView):
         responses={"200": "", "400": "Bad Request"},
         security=[],
         operation_id="resource_update_delete_land",
-        operation_description="""
-                                 Update or delete a land
-                              """,
+        operation_description="""Update or delete a land""",
     )
     def put(self, request, *args, **kwargs):
         request.data._mutable = True
@@ -231,7 +225,7 @@ class PostListCreate(generics.ListCreateAPIView):
         return Post.objects.get_all_posts(self.request.data.get("created_by"))
 
     def get(self, request, *args, **kwargs):
-        """ GET all post created by all users """
+        """GET all post created by all users"""
         return super(PostListCreate, self).get(request, *args, **kwargs)
 
     @swagger_auto_schema(
@@ -250,6 +244,7 @@ class PostListCreate(generics.ListCreateAPIView):
 
 
 class ListingsListCreate(generics.ListCreateAPIView):
+
     """API endpoint that allows users to create and get list of listings"""
 
     response = '{"response": "success", "message": "post created succesfully"}'
@@ -289,9 +284,7 @@ class ListAddPost(generics.CreateAPIView):
         responses={"200": response, "400": "Bad Request"},
         security=[],
         operation_id="resource_add_post_to_list",
-        operation_description="""
-                   Add post to list
-               """,
+        operation_description="""Add post to list""",
     )
     def post(self, request, *args, **kwargs):
         request.data._mutable = True
@@ -308,7 +301,7 @@ class ListingsPost(generics.ListAPIView):
         return List.objects.get_all_post_in_list(self.kwargs["list_id"])
 
     def get(self, request, *args, **kwargs):
-        """GET ALL POST IN A LIST"""
+        """GET ALL POST IN A LIST."""
         return super(ListingsPost, self).get(request, *args, **kwargs)
 
 
@@ -324,7 +317,7 @@ class ListDeletePost(APIView):
                                 Delete post from list
                                 """,
     )
-    def delete(self, request, *args, **kwargs):
+    def delete(request, *args, **kwargs):
         request.data._mutable = True
         request.data.update({"user": request.user.id})
         data = request.data
