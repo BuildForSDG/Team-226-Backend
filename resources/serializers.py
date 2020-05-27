@@ -145,8 +145,13 @@ class ListPostSerializer(serializers.ModelSerializer):
 
     def is_valid(self, raise_exception=False):
         user = self.initial_data.get("user")
-        if Post.objects.get_user_post(user, self.initial_data.get("post")).exists() and \
-                List.objects.get_user_list(user, self.initial_data.get("list")).exists():
+        post_exist = Post.objects.get_user_post(
+            user, self.initial_data.get("post")
+        ).exists()
+        list_exist = List.objects.get_user_list(
+            user, self.initial_data.get("list")
+        ).exists()
+        if post_exist and list_exist:
             super(ListPostSerializer, self).is_valid()
         else:
             raise ValidationError("Either post or list does not belong to user")

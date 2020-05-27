@@ -76,7 +76,7 @@ class AddUserCategory(APIView):
         responses={"200": "", "400": "Bad Request"},
         security=[],
         operation_id="auth_create_user",
-        operation_description="""Add an existing category to a users category list"""
+        operation_description="""Add an existing category to a users category list""",
     )
     def post(request):
         serializer = UserCategorySerializer(data=request.data)
