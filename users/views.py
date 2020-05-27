@@ -50,7 +50,7 @@ class CreateUserView(APIView):
             Create a new user
             Accepts the following POST parameters:
                 email* and password* are required create the new user
-        """
+        """,
     )
     def post(self, request):
         user_data = request.data
@@ -70,6 +70,7 @@ class AddUserCategory(APIView):
         API endpoint that allows users to add Categories to their list
     """
 
+    @staticmethod
     @swagger_auto_schema(
         request_body=UserCategorySerializer,
         responses={"200": "", "400": "Bad Request"},
@@ -77,7 +78,7 @@ class AddUserCategory(APIView):
         operation_id="auth_create_user",
         operation_description="""Add an existing category to a users category list"""
     )
-    def post(self, request):
+    def post(request):
         serializer = UserCategorySerializer(data=request.data)
         if not serializer.is_valid():
             return Response(serializer.errors, status.HTTP_400_BAD_REQUEST)

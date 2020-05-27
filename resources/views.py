@@ -139,7 +139,7 @@ class ListingsUpdateDelete(generics.RetrieveUpdateDestroyAPIView):
         responses={"200": "", "400": "Bad Request"},
         security=[],
         operation_id="resource_update_delete_list",
-        operation_description="""Update or delete a List"""
+        operation_description="""Update or delete a List""",
     )
     def put(self, request, *args, **kwargs):
         return super(ListingsUpdateDelete, self).put(request, *args, **kwargs)
@@ -233,7 +233,7 @@ class PostListCreate(generics.ListCreateAPIView):
         operation_id="resource_create_post",
         operation_description="""
                 Create a Post Entity
-            """
+            """,
     )
     def post(self, request, *args, **kwargs):
         request.data._mutable = True
@@ -306,14 +306,15 @@ class ListingsPost(generics.ListAPIView):
 class ListDeletePost(APIView):
     response = '{"response": "success", "message": "post created succesfully"}'
 
+    @staticmethod
     @swagger_auto_schema(
         request_body=ListPostSerializerForDocs,
         responses={"200": response, "400": "Bad Request"},
         security=[],
         operation_id="resource_delete_post_from_list",
-        operation_description="""Delete post from list"""
+        operation_description="""Delete post from list""",
     )
-    def delete(self, request, *args, **kwargs):
+    def delete(request, *args, **kwargs):
         request.data._mutable = True
         request.data.update({"user": request.user.id})
         data = request.data
