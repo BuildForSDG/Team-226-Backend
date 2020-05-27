@@ -10,7 +10,7 @@ src.egg-info
 venv
 zero_hunger.egg-info
 .env
-.idea
+.idea/
 # Unit test / coverage reports
 htmlcov/
 .tox/
