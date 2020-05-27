@@ -12,6 +12,8 @@ zero_hunger.egg-info
 .env
 .idea/
 media/
+zero_hunger.egg-info/
+zero_hunger/.env
 # Unit test / coverage reports
 htmlcov/
 .tox/
