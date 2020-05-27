@@ -1,7 +1,7 @@
 # FILES
 **/**/.pyc
 .DS_Store
-.pyc
+*.pyc
 # DIRECTORIES
 **/**/__pycache__
 .vscode/
@@ -26,3 +26,4 @@ coverage.xml
 .hypothesis/
 .pytest_cache/
 cover/
+.python-version
