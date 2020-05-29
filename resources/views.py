@@ -130,7 +130,7 @@ class ListingsUpdateDelete(generics.RetrieveUpdateDestroyAPIView):
 
     def get_object(self):
         try:
-            return Post.objects.get_post(self.kwargs.get("list_id"))
+            return List.objects.get_list(self.kwargs.get("list_id"))
         except Post.DoesNotExist:
             raise Http404
 
@@ -236,7 +236,8 @@ class PostListCreate(generics.ListCreateAPIView):
             """,
     )
     def post(self, request, *args, **kwargs):
-        request.data._mutable = True
+        if type(request.data) is not dict:
+            request.data._mutable = True
         request.data["created_by"] = request.user.id
         return super(PostListCreate, self).post(request, *args, **kwargs)
 
@@ -265,7 +266,8 @@ class ListingsListCreate(generics.ListCreateAPIView):
             """,
     )
     def post(self, request, *args, **kwargs):
-        request.data._mutable = True
+        if type(request.data) is not dict:
+            request.data._mutable = True
         request.data["created_by"] = request.user.id
         return super(ListingsListCreate, self).post(request, *args, **kwargs)
 
@@ -285,10 +287,14 @@ class ListAddPost(generics.CreateAPIView):
         operation_description="""Add post to list""",
     )
     def post(self, request, *args, **kwargs):
-        request.data._mutable = True
+        if type(request.data) is not dict:
+            request.data._mutable = True
         request.data["user"] = request.user.id
-        print(request.data)
         return super(ListAddPost, self).post(request, *args, **kwargs)
+
+    # def perform_create(self, serializer):
+    #     print(serializer.validated_data)
+    #     serializer.save(user=self.request.user.id)
 
 
 class ListingsPost(generics.ListAPIView):
@@ -304,7 +310,7 @@ class ListingsPost(generics.ListAPIView):
 
 
 class ListDeletePost(APIView):
-    response = '{"response": "success", "message": "post created succesfully"}'
+    response = '{"response": "success", "message": "post deleted succesfully"}'
 
     @staticmethod
     @swagger_auto_schema(
@@ -315,7 +321,8 @@ class ListDeletePost(APIView):
         operation_description="""Delete post from list""",
     )
     def delete(request, *args, **kwargs):
-        request.data._mutable = True
+        if type(request.data) is not dict:
+            request.data._mutable = True
         request.data.update({"user": request.user.id})
         data = request.data
         qs = ListPost.objects.get_list_post(

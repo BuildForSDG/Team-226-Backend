@@ -18,7 +18,7 @@ class TestResourcesApi(APITestCase):
             {"category_id": self.category.id, "created_by_id": self.user.id}
         )
         TestSetupData.LEASE_LAND_CREATE["owner_id"] = self.user.id
-        Land.objects.create(**TestSetupData.LEASE_LAND_CREATE)
+        self.land = Land.objects.create(**TestSetupData.LEASE_LAND_CREATE)
         self.post = Post.objects.create(**TestSetupData.POST_CREATE)
         TestSetupData.LIST_CREATE["created_by_id"] = self.user.id
         self.listing = List.objects.create(**TestSetupData.LIST_CREATE)
@@ -74,11 +74,11 @@ class TestResourcesApi(APITestCase):
         )
         assert response.status_code == status.HTTP_400_BAD_REQUEST
 
-    def test_get_land(self):
-        response = self.client.get(
-            reverse("resources:update_land", kwargs={"land_id": 1})
+    def test_delete_land(self):
+        response = self.client.delete(
+            reverse("resources:update_land", kwargs={"land_id": self.land.id})
         )
-        assert response.status_code == status.HTTP_404_NOT_FOUND
+        assert response.status_code == status.HTTP_204_NO_CONTENT
 
     def test_get_user_land(self):
         response = self.client.get(reverse("resources:get_lands"))
@@ -90,11 +90,11 @@ class TestResourcesApi(APITestCase):
         )
         assert response.status_code == status.HTTP_201_CREATED
 
-    def test_get_list(self):
-        response = self.client.get(
-            reverse("resources:update_list", kwargs={"list_id": 1})
+    def test_delete_list(self):
+        response = self.client.delete(
+            reverse("resources:update_list", kwargs={"list_id": self.listing.id})
         )
-        assert response.status_code == status.HTTP_404_NOT_FOUND
+        assert response.status_code == status.HTTP_204_NO_CONTENT
 
     def test_get_user_list(self):
         response = self.client.get(reverse("resources:get_list"))
@@ -108,11 +108,11 @@ class TestResourcesApi(APITestCase):
         )
         assert response.status_code == status.HTTP_201_CREATED
 
-    def test_get_post(self):
-        response = self.client.get(
-            reverse("resources:update_post", kwargs={"post_id": 1})
+    def test_delete_post(self):
+        response = self.client.delete(
+            reverse("resources:update_post", kwargs={"post_id": self.post.id})
         )
-        assert response.status_code == status.HTTP_404_NOT_FOUND
+        assert response.status_code == status.HTTP_204_NO_CONTENT
 
     def test_get_user_post(self):
         response = self.client.get(reverse("resources:get_posts"))
