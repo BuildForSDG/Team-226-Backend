@@ -19,11 +19,10 @@ class LandModelTest(TestCase):
         # Set up non-modified objects used by all test methods
         Land.objects.create(
             title="5022 in Bonji",
-            cost="XAF 100k monthly",
+            cost=500,
             for_type="for rent",
-            size="50",
-            size_type="M",
-            images="test_image.png",
+            size=50,
+            size_unit_measurement="M",
             location="Bonji, South West, Cameroon",
             visibility="public",
             owner=user,
@@ -32,7 +31,7 @@ class LandModelTest(TestCase):
     def test_title_label(self):
         land = Land.objects.first()
         field_label = land._meta.get_field("title").verbose_name
-        assert field_label == "Land title(size + size_type + in + location)"
+        assert field_label == "Land title"
 
     def test_title_max_length(self):
         land = Land.objects.first()
@@ -59,20 +58,10 @@ class LandModelTest(TestCase):
         field_label = land._meta.get_field("size").verbose_name
         assert field_label == "Land size"
 
-    def test_size_max_length(self):
-        land = Land.objects.first()
-        max_length = land._meta.get_field("size").max_length
-        assert max_length == 30
-
     def test_size_type_label(self):
         land = Land.objects.first()
-        field_label = land._meta.get_field("size_type").verbose_name
+        field_label = land._meta.get_field("size_unit_measurement").verbose_name
         assert field_label == "Land size measurement type"
-
-    def test_size_type_max_length(self):
-        land = Land.objects.first()
-        max_length = land._meta.get_field("size_type").max_length
-        assert max_length == 30
 
     def test_for_type_label(self):
         land = Land.objects.first()
@@ -93,11 +82,6 @@ class LandModelTest(TestCase):
         land = Land.objects.first()
         max_length = land._meta.get_field("location").max_length
         assert max_length == 255
-
-    def test_images_label(self):
-        land = Land.objects.first()
-        field_label = land._meta.get_field("images").verbose_name
-        assert field_label == "Images of the land"
 
     def test_visibility_label(self):
         land = Land.objects.first()

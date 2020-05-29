@@ -1,7 +1,6 @@
 from django.contrib.auth.models import Group, Permission
 from django.test import TestCase
 
-from resources.models import Category
 from users.models import User
 
 
@@ -16,8 +15,6 @@ class UserModelTest(TestCase):
         group.permissions.add(*change_user_permissions)
 
         # Set up non-modified objects used by all test methods
-        category1 = Category.objects.create(name="horticulture")
-        category2 = Category.objects.create(name="green-house")
 
         user = User.objects.create(
             first_name="Big",
@@ -26,8 +23,12 @@ class UserModelTest(TestCase):
             email="bigbob@test.com",
             password="secret",
         )
+
+        # category1 = Category.objects.create(name="horticulture")
+        # category2 = Category.objects.create(name="green-house")
+
         user.groups.add(group)
-        user.pref_categories.add(category1, category2)
+        # user.pref_categories.add(category1, category2)
 
     def test_email_label(self):
         user = User.objects.first()
@@ -126,12 +127,3 @@ class UserModelTest(TestCase):
         user = User.objects.first()
         field_label = user._meta.get_field("pref_contact_method").verbose_name
         assert field_label == "Preferential Contact Method"
-
-    def test_pref_categories_label(self):
-        user = User.objects.first()
-        field_label = user._meta.get_field("pref_categories").verbose_name
-        assert field_label == "Preferential Categories"
-
-    def test_user_categories(self):
-        user = User.objects.first()
-        assert user.pref_categories.all() is not None

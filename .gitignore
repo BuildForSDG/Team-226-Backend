@@ -1,7 +1,7 @@
 # FILES
 **/**/.pyc
 .DS_Store
-
+*.pyc
 # DIRECTORIES
 **/**/__pycache__
 .vscode/
@@ -10,7 +10,10 @@ src.egg-info
 venv
 zero_hunger.egg-info
 .env
-
+.idea/
+media/
+zero_hunger.egg-info/
+zero_hunger/.env
 # Unit test / coverage reports
 htmlcov/
 .tox/
@@ -25,3 +28,4 @@ coverage.xml
 .hypothesis/
 .pytest_cache/
 cover/
+.python-version

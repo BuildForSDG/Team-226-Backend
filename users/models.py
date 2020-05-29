@@ -29,11 +29,11 @@ class User(AbstractUser):
         max_length=3,
         blank=True,
     )
-    pref_categories = models.ManyToManyField(
-        "resources.Category",
-        related_name="pref_categories",
-        verbose_name="Preferential Categories",
-    )
+    # pref_categories = models.ManyToManyField(
+    #     "resources.Category",
+    #     related_name="pref_categories",
+    #     verbose_name="Preferential Categories",
+    # )
     date_joined = None
     date_created = models.DateTimeField(auto_now_add=True)
     date_updated = models.DateTimeField(auto_now=True)
