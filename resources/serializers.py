@@ -11,6 +11,8 @@ from resources.models import (
     PostImage,
     List,
     ListPost,
+    Comment,
+    CommentImage,
 )
 
 
@@ -91,7 +93,16 @@ class LandImageSerializer(serializers.ModelSerializer):
         """DOC STRING"""
 
         model = LandImage
-        fields = "__all__"
+        exclude = ["upload_for"]
+        read_only_fields = ["date_created", "date_updated"]
+
+
+class PostImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        """DOC STRING"""
+
+        model = PostImage
+        exclude = ["upload_for"]
         read_only_fields = ["date_created", "date_updated"]
 
 
@@ -127,15 +138,6 @@ class ListSerializerForDocs(serializers.ModelSerializer):
         exclude = ["created_by"]
 
 
-class PostImageSerializer(serializers.ModelSerializer):
-    class Meta:
-        """DOC STRING"""
-
-        model = PostImage
-        fields = "__all__"
-        read_only_fields = ["date_created", "date_updated"]
-
-
 class ListPostSerializer(serializers.ModelSerializer):
     class Meta:
         """DOC STRING"""
@@ -164,3 +166,38 @@ class ListPostSerializerForDocs(serializers.ModelSerializer):
 
         fields = None
         exclude = ["user"]
+
+
+class CommentSerializer(serializers.ModelSerializer):
+    class Meta:
+
+        """DOC STRING"""
+
+        fields = [
+            "id",
+            "created_by",
+            "post",
+            "text",
+            "date_created",
+            "date_updated",
+            "reply_to",
+        ]
+        model = Comment
+
+
+class CommentSerializerForDocs(serializers.ModelSerializer):
+    class Meta(CommentSerializer.Meta):
+
+        """DOC STRING"""
+
+        fields = None
+        exclude = ["created_by", "post", "date_updated", "date_created"]
+
+
+class CommentImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        """DOC STRING"""
+
+        model = CommentImage
+        fields = ["id", "image"]
+        read_only_fields = ["date_created", "date_updated"]

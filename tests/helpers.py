@@ -111,6 +111,8 @@ class TestSetupData:
         "created_by_id": 1,
     }
 
+    COMMENT_CREATE = {"text": "Test comment"}
+
     POST = {
         "title": "post 1",
         "slug": "post-1",

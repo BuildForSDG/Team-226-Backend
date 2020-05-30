@@ -57,3 +57,11 @@ class ListQuerySet(models.QuerySet):
 class ListPostQuerySet(models.QuerySet):
     def get_list_post(self, user_id, list_id, post_id):
         return self.filter(Q(list=list_id) & Q(post=post_id) & Q(user=user_id))
+
+
+class CommentQuerySet(models.QuerySet):
+    def get_comments_for_post(self, post_id):
+        return self.filter(post=post_id)
+
+
+# class CommentImageQuerySet(models.Query)
