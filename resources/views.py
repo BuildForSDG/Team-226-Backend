@@ -1,8 +1,6 @@
 from django.http import Http404
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework import generics, status
-
-# Create your views here.
 from rest_framework.decorators import api_view
 from rest_framework.parsers import FormParser, MultiPartParser
 from rest_framework.response import Response

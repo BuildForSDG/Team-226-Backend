@@ -209,6 +209,11 @@ class LandImage(models.Model):
         on_delete=models.CASCADE,
     )
 
+    class Meta:
+        """ posts lists model meta properties """
+
+        verbose_name_plural = "Land Images"
+
     def __str__(self):
         """ overiding str mehtod for class """
         return self.image.name
@@ -225,6 +230,11 @@ class PostImage(models.Model):
         on_delete=models.CASCADE,
     )
 
+    class Meta:
+        """ posts lists model meta properties """
+
+        verbose_name_plural = "Post Images"
+
     def __str__(self):
         """ overiding str mehtod for class """
         return self.image.name
@@ -235,6 +245,11 @@ class UserCategory(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
 
     objects = UserCategoryQuerySet.as_manager()
+
+    class Meta:
+        """ posts lists model meta properties """
+
+        verbose_name_plural = "User Categories"
 
     def __str__(self):
         """ overiding str mehtod for class """
