@@ -4,24 +4,24 @@ from rest_framework import generics, status
 
 # Create your views here.
 from rest_framework.decorators import api_view
-from rest_framework.parsers import MultiPartParser, FormParser
+from rest_framework.parsers import FormParser, MultiPartParser
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from resources.models import Land, Category, Post, List, ListPost
+from resources.models import Category, Land, List, ListPost, Post
 from resources.serializers import (
-    LandSerializer,
-    LandImageSerializer,
     CategorySerializer,
-    PostSerializer,
-    PostImageSerializer,
     CategorySerializerForDocs,
+    LandImageSerializer,
+    LandSerializer,
     LandSerializerForDocs,
-    PostSerializerForDocs,
-    ListSerializer,
-    ListSerializerForDocs,
     ListPostSerializer,
     ListPostSerializerForDocs,
+    ListSerializer,
+    ListSerializerForDocs,
+    PostImageSerializer,
+    PostSerializer,
+    PostSerializerForDocs,
 )
 
 

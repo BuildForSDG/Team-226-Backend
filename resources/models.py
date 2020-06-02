@@ -2,12 +2,12 @@ from django.db import models
 
 from resources.constants import Constants
 from resources.querysets import (
-    LandQuerySet,
     CategoryQuerySet,
-    UserCategoryQuerySet,
-    PostQuerySet,
-    ListQuerySet,
+    LandQuerySet,
     ListPostQuerySet,
+    ListQuerySet,
+    PostQuerySet,
+    UserCategoryQuerySet,
 )
 from users.models import User
 
@@ -24,6 +24,8 @@ class Category(models.Model):
     objects = CategoryQuerySet.as_manager()
 
     class Meta:
+        """ category model meta properties """
+
         ordering = ["name"]
         verbose_name_plural = "Categories"
 
@@ -37,6 +39,7 @@ class Category(models.Model):
         )
 
     def __str__(self):
+        """ overiding str mehtod for class """
         return self.name
 
 
@@ -84,9 +87,12 @@ class Land(models.Model):
     objects = LandQuerySet.as_manager()
 
     class Meta:
+        """ land model meta properties """
+
         ordering = ["title"]
 
     def __str__(self):
+        """ overiding str mehtod for class """
         return self.title
 
 
@@ -109,9 +115,12 @@ class List(models.Model):
     objects = ListQuerySet.as_manager()
 
     class Meta:
+        """ list model meta properties """
+
         ordering = ["title"]
 
     def __str__(self):
+        """ overiding str mehtod for class """
         return self.title
 
 
@@ -141,9 +150,12 @@ class Post(models.Model):
     objects = PostQuerySet.as_manager()
 
     class Meta:
+        """ post model meta properties """
+
         ordering = ["title"]
 
     def __str__(self):
+        """ overiding str mehtod for class """
         return self.title
 
 
@@ -155,9 +167,12 @@ class ListPost(models.Model):
     objects = ListPostQuerySet.as_manager()
 
     class Meta:
+        """ posts lists model meta properties """
+
         unique_together = ["list", "post"]
 
     def __str__(self):
+        """ overiding str mehtod for class """
         return "Post: {} listed in {}".format(self.post.title, self.list.title)
 
 
@@ -174,9 +189,12 @@ class Comment(models.Model):
     date_updated = models.DateTimeField(auto_now=True)
 
     class Meta:
+        """ comment model meta properties """
+
         ordering = ["text"]
 
     def __str__(self):
+        """ overiding str mehtod for class """
         return self.text
 
 
@@ -192,9 +210,12 @@ class LandImage(models.Model):
     )
 
     class Meta:
+        """ land image model meta properties """
+
         pass
 
     def __str__(self):
+        """ overiding str mehtod for class """
         return self.image.name
 
 
@@ -210,9 +231,12 @@ class PostImage(models.Model):
     )
 
     class Meta:
+        """ post image model meta properties """
+
         pass
 
     def __str__(self):
+        """ overiding str mehtod for class """
         return self.image.name
 
 
@@ -223,7 +247,10 @@ class UserCategory(models.Model):
     objects = UserCategoryQuerySet.as_manager()
 
     class Meta:
+        """ user category model meta properties """
+
         pass
 
     def __str__(self):
+        """ overiding str mehtod for class """
         return "User: {}, Category: {}".format(self.user.first_name, self.category.name)

@@ -44,9 +44,12 @@ class User(AbstractUser):
     objects = UserManager()
 
     class Meta:
+        """ overiding str mehtod for class """
+
         ordering = ["email"]
 
     def __str__(self):
+        """ overiding str mehtod for class """
         return "%s, %s" % (self.last_name, self.first_name)
 
     def get_absolute_url(self):

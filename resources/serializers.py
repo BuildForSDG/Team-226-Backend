@@ -6,17 +6,17 @@ from resources.models import (
     Category,
     Land,
     LandImage,
-    UserCategory,
-    Post,
-    PostImage,
     List,
     ListPost,
+    Post,
+    PostImage,
+    UserCategory,
 )
 
 
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
-        """DOC STRING"""
+        """ Category serializer meta properties """
 
         model = Category
         fields = ["name", "slug", "created_by"]
@@ -25,14 +25,14 @@ class CategorySerializer(serializers.ModelSerializer):
 
 class CategorySerializerForDocs(serializers.ModelSerializer):
     class Meta(CategorySerializer.Meta):
-        """DOC STRING"""
+        """ category serializer for docs meta properties """
 
         fields = ["name", "slug"]
 
 
 class UserCategorySerializer(serializers.ModelSerializer):
     class Meta:
-        """DOC STRING"""
+        """ user category serializer meta properties """
 
         model = UserCategory
         fields = "__all__"
@@ -40,7 +40,7 @@ class UserCategorySerializer(serializers.ModelSerializer):
 
 class LandSerializer(serializers.ModelSerializer):
     class Meta:
-        """DOC STRING"""
+        """ land serializer meta properties """
 
         model = Land
         fields = [
@@ -78,7 +78,7 @@ class LandSerializer(serializers.ModelSerializer):
 
 class LandSerializerForDocs(serializers.ModelSerializer):
     class Meta(LandSerializer.Meta):
-        """DOC STRING"""
+        """ land serializer for docs meta properties """
 
         import copy
 
@@ -88,7 +88,7 @@ class LandSerializerForDocs(serializers.ModelSerializer):
 
 class LandImageSerializer(serializers.ModelSerializer):
     class Meta:
-        """DOC STRING"""
+        """ land image serializer meta properties """
 
         model = LandImage
         fields = "__all__"
@@ -97,7 +97,7 @@ class LandImageSerializer(serializers.ModelSerializer):
 
 class PostSerializer(serializers.ModelSerializer):
     class Meta:
-        """DOC STRING"""
+        """ post serializer meta properties """
 
         model = Post
         fields = "__all__"
@@ -105,7 +105,7 @@ class PostSerializer(serializers.ModelSerializer):
 
 class PostSerializerForDocs(serializers.ModelSerializer):
     class Meta(PostSerializer.Meta):
-        """DOC STRING"""
+        """ post serializer for docs meta properties """
 
         fields = None
         exclude = ["created_by"]
@@ -113,7 +113,7 @@ class PostSerializerForDocs(serializers.ModelSerializer):
 
 class ListSerializer(serializers.ModelSerializer):
     class Meta:
-        """DOC STRING"""
+        """ list serializer meta properties """
 
         model = List
         fields = "__all__"
@@ -121,7 +121,7 @@ class ListSerializer(serializers.ModelSerializer):
 
 class ListSerializerForDocs(serializers.ModelSerializer):
     class Meta(ListSerializer.Meta):
-        """DOC STRING"""
+        """ list serializer for docs meta properties """
 
         fields = None
         exclude = ["created_by"]
@@ -129,7 +129,7 @@ class ListSerializerForDocs(serializers.ModelSerializer):
 
 class PostImageSerializer(serializers.ModelSerializer):
     class Meta:
-        """DOC STRING"""
+        """ post image serializer meta properties """
 
         model = PostImage
         fields = "__all__"
@@ -138,7 +138,7 @@ class PostImageSerializer(serializers.ModelSerializer):
 
 class ListPostSerializer(serializers.ModelSerializer):
     class Meta:
-        """DOC STRING"""
+        """ list post serializer meta properties """
 
         model = ListPost
         fields = "__all__"
@@ -159,8 +159,7 @@ class ListPostSerializer(serializers.ModelSerializer):
 
 class ListPostSerializerForDocs(serializers.ModelSerializer):
     class Meta(ListPostSerializer.Meta):
-
-        """DOC STRING"""
+        """ list post serializer for docs meta properties """
 
         fields = None
         exclude = ["user"]

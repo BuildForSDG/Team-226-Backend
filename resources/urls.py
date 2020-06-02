@@ -1,19 +1,19 @@
 from django.urls import path
 
 from resources.views import (
-    LandListCreate,
-    UploadImages,
-    get_user_land_list,
-    LandUpdateDelete,
     CategoryListCreate,
-    PostUpdateDelete,
-    get_user_post_list,
-    PostListCreate,
-    ListingsListCreate,
-    ListingsUpdateDelete,
+    LandListCreate,
+    LandUpdateDelete,
     ListAddPost,
     ListDeletePost,
+    ListingsListCreate,
     ListingsPost,
+    ListingsUpdateDelete,
+    PostListCreate,
+    PostUpdateDelete,
+    UploadImages,
+    get_user_land_list,
+    get_user_post_list,
 )
 
 urlpatterns = [

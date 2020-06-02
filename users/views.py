@@ -1,12 +1,13 @@
 from django.http import Http404
 from drf_yasg.utils import swagger_auto_schema
-from rest_framework import mixins, permissions, status, viewsets, generics
+from rest_framework import generics, mixins, permissions, status, viewsets
 from rest_framework.parsers import MultiPartParser
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from resources.models import UserCategory
 from resources.serializers import UserCategorySerializer
+
 from .models import User
 from .serializers import UserSerializer, UserSerializerWithToken
 
@@ -17,9 +18,7 @@ class UserViewSet(
     mixins.DestroyModelMixin,
     viewsets.GenericViewSet,
 ):
-    """
-    API endpoint that allows users to be viewed or edited.
-    """
+    """ API endpoint that allows users to be viewed or edited. """
 
     queryset = User.objects.all().order_by("-date_created")
     serializer_class = UserSerializer
@@ -33,8 +32,8 @@ class UserViewSet(
 
 class CreateUserView(APIView):
     """
-    API endpoint that allows visitors to create accounts.
-    For signup
+        API endpoint that allows visitors to create accounts.
+        For signup
     """
 
     permission_classes = (permissions.AllowAny,)
@@ -66,9 +65,7 @@ class CreateUserView(APIView):
 
 class AddUserCategory(APIView):
 
-    """
-        API endpoint that allows users to add Categories to their list
-    """
+    """ API endpoint that allows users to add Categories to their list """
 
     @staticmethod
     @swagger_auto_schema(
