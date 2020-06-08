@@ -14,6 +14,7 @@ from resources.views import (
     ListAddPost,
     ListDeletePost,
     ListingsPost,
+    CommentListCreate,
 )
 
 urlpatterns = [
@@ -29,6 +30,7 @@ urlpatterns = [
     path("list/add/post/", ListAddPost.as_view(), name="add_post_to_list"),
     path("list/delete/post/", ListDeletePost.as_view(), name="delete_post_from_list"),
     path("user/list/", get_user_post_list, name="get_list"),
+    path("post/<int:post_id>/comment/", CommentListCreate.as_view(), name="comment"),
     path("category/", CategoryListCreate.as_view(), name="create_or_get_categories"),
     path("upload/<str:type>/images/", UploadImages.as_view(), name="upload_images"),
 ]
