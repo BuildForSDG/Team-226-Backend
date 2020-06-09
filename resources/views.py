@@ -1,3 +1,5 @@
+from collections import OrderedDict
+
 from django.http import Http404
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework import generics, status
@@ -6,10 +8,13 @@ from rest_framework.parsers import FormParser, MultiPartParser
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from resources.models import Category, Land, List, ListPost, Post
+from resources.models import Category, Comment, Land, List, ListPost, Post
 from resources.serializers import (
     CategorySerializer,
     CategorySerializerForDocs,
+    CommentImageSerializer,
+    CommentSerializer,
+    CommentSerializerForDocs,
     LandImageSerializer,
     LandSerializer,
     LandSerializerForDocs,
@@ -35,7 +40,9 @@ class LandListCreate(generics.ListCreateAPIView):
 
     def get(self, request, *args, **kwargs):
         """GET all lands posted by all users."""
-        return super(LandListCreate, self).get(request, *args, **kwargs)
+        response_obj = super(LandListCreate, self).get(request, *args, **kwargs)
+        response_obj.data["results"] = self.build_land_obj(response_obj.data["results"])
+        return response_obj
 
     @swagger_auto_schema(
         request_body=LandSerializerForDocs,
@@ -50,6 +57,17 @@ class LandListCreate(generics.ListCreateAPIView):
         request.data._mutable = True
         request.data["owner"] = request.user.id
         return super(LandListCreate, self).post(request, *args, **kwargs)
+
+    @staticmethod
+    def build_land_obj(response_array):
+        response_obj = []
+        for value_obj in response_array:
+            image_serializer = LandImageSerializer(
+                Land.objects.get(id=value_obj.get("id")).land_images.all(), many=True
+            )
+            value_obj["images"] = image_serializer.data
+            response_obj.append(value_obj)
+        return response_obj
 
 
 class CategoryListCreate(generics.ListCreateAPIView):
@@ -156,17 +174,17 @@ class UploadImages(generics.GenericAPIView):
         operation_id="resource_upload_images",
         operation_description="""
                     Upload images
-                    @pathVariable type should be (post or land) depending on what the images
+                    @pathVariable type should be (post or land or comment) depending on what the images
                     are post for
                 """,
     )
     def post(self, request, *args, **kwargs):
         image_type = self.kwargs.get("type")
-        if image_type != "land" and image_type != "post":
+        if image_type not in ("land", "post", "comment"):
             return Response("error", status.HTTP_400_BAD_REQUEST)
         upload_for = request.data.get("upload_for", None)
         if upload_for is not None:
-            for image in dict(request.data.lists()).get("images", []):
+            for image in dict(request.data.lists()).get("image", []):
                 image_serializer = None
                 if image_type == "land":
                     image_serializer = LandImageSerializer(
@@ -174,6 +192,10 @@ class UploadImages(generics.GenericAPIView):
                     )
                 elif image_type == "post":
                     image_serializer = PostImageSerializer(
+                        data={"image": image, "upload_for": upload_for}
+                    )
+                elif image_type == "comment":
+                    image_serializer = CommentImageSerializer(
                         data={"image": image, "upload_for": upload_for}
                     )
                 image_serializer.is_valid(True)
@@ -222,7 +244,9 @@ class PostListCreate(generics.ListCreateAPIView):
 
     def get(self, request, *args, **kwargs):
         """GET all post created by all users."""
-        return super(PostListCreate, self).get(request, *args, **kwargs)
+        response_obj = super(PostListCreate, self).get(request, *args, **kwargs)
+        response_obj.data["results"] = self.build_post_obj(response_obj.data["results"])
+        return response_obj
 
     @swagger_auto_schema(
         request_body=PostSerializerForDocs,
@@ -238,6 +262,17 @@ class PostListCreate(generics.ListCreateAPIView):
             request.data._mutable = True
         request.data["created_by"] = request.user.id
         return super(PostListCreate, self).post(request, *args, **kwargs)
+
+    @staticmethod
+    def build_post_obj(response_array):
+        response_obj = []
+        for value_obj in response_array:
+            image_serializer = PostImageSerializer(
+                Post.objects.get(id=value_obj.get("id")).post_images.all(), many=True
+            )
+            value_obj["images"] = image_serializer.data
+            response_obj.append(value_obj)
+        return response_obj
 
 
 class ListingsListCreate(generics.ListCreateAPIView):
@@ -334,3 +369,57 @@ class ListDeletePost(APIView):
                 {"response": "User doesn't have post assigned to list"},
                 status.HTTP_400_BAD_REQUEST,
             )
+
+
+class CommentListCreate(generics.ListCreateAPIView):
+
+    """API endpoint that allows users to comment and get list of comments."""
+
+    response = '{"response": "success", "message": "comment created succesfully"}'
+    serializer_class = CommentSerializer
+
+    def get_queryset(self):
+        return Comment.objects.get_comments_for_post(self.kwargs.get("post_id"))
+
+    def get(self, request, *args, **kwargs):
+        """GET all comments for a post."""
+
+        response_obj = super(CommentListCreate, self).get(request, *args, **kwargs)
+        response_obj.data["results"] = self.build_comment_reply_obj(
+            response_obj.data["results"]
+        )
+        return response_obj
+
+    @swagger_auto_schema(
+        request_body=CommentSerializerForDocs,
+        responses={"200": response, "400": "Bad Request"},
+        security=[],
+        operation_id="resource_create_comment",
+        operation_description="""
+                Comment under a Post
+            """,
+    )
+    def post(self, request, *args, **kwargs):
+        if type(request.data) is not dict:
+            request.data._mutable = True
+        request.data["created_by"] = request.user.id
+        request.data["post"] = self.kwargs.get("post_id")
+        return super(CommentListCreate, self).post(request, *args, **kwargs)
+
+    @staticmethod
+    def build_comment_reply_obj(response_array):
+        obj = OrderedDict()
+        for value_obj in response_array:
+            image_serializer = CommentImageSerializer(
+                Comment.objects.get(id=value_obj.get("id")).comment_images.all(),
+                many=True,
+            )
+            value_obj["images"] = image_serializer.data
+            if value_obj.get("reply_to") is None:
+                obj[value_obj.get("id")] = value_obj
+                obj[value_obj.get("id")]["replies"] = []
+            else:
+                if "replies" not in obj[value_obj.get("reply_to")]:
+                    obj[value_obj.get("reply_to")]["replies"] = []
+                obj[value_obj.get("reply_to")]["replies"].append(value_obj)
+        return obj

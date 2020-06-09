@@ -2,7 +2,7 @@ from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase
 
-from resources.models import Category, Land, List, Post
+from resources.models import Category, Comment, Land, List, Post
 from tests.helpers import TestSetupData
 from users.models import User
 
@@ -22,6 +22,9 @@ class TestResourcesApi(APITestCase):
         self.post = Post.objects.create(**TestSetupData.POST_CREATE)
         TestSetupData.LIST_CREATE["created_by_id"] = self.user.id
         self.listing = List.objects.create(**TestSetupData.LIST_CREATE)
+        TestSetupData.COMMENT_CREATE["created_by_id"] = self.user.id
+        TestSetupData.COMMENT_CREATE["post_id"] = self.post.id
+        self.comment = Comment.objects.create(**TestSetupData.COMMENT_CREATE)
 
     def test_upload_images(self):
         data = {
@@ -138,3 +141,17 @@ class TestResourcesApi(APITestCase):
             reverse("resources:delete_post_from_list"), {"list": 2, "post": 2}
         )
         assert response.status_code == status.HTTP_400_BAD_REQUEST
+
+    def test_comment_on_post(self):
+        response = self.client.post(
+            reverse("resources:comment", kwargs={"post_id": self.post.id}),
+            {"text": "Test comment"},
+        )
+        assert response.status_code == status.HTTP_201_CREATED
+
+    def test_reply_on_comment(self):
+        response = self.client.post(
+            reverse("resources:comment", kwargs={"post_id": self.post.id}),
+            {"text": "First Reply", "reply_to": self.comment.id},
+        )
+        assert response.status_code == status.HTTP_201_CREATED

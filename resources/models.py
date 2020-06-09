@@ -3,6 +3,7 @@ from django.db import models
 from resources.constants import Constants
 from resources.querysets import (
     CategoryQuerySet,
+    CommentQuerySet,
     LandQuerySet,
     ListPostQuerySet,
     ListQuerySet,
@@ -178,15 +179,19 @@ class ListPost(models.Model):
 
 class Comment(models.Model):
     text = models.TextField(verbose_name="Comment text")
-    image = models.TextField(verbose_name="Comment image", blank=True)
-    user = models.ForeignKey(
+    created_by = models.ForeignKey(
         "users.User", verbose_name="Author linked to", on_delete=models.CASCADE
     )
     post = models.ForeignKey(
         "Post", verbose_name="Post linked to", on_delete=models.CASCADE
     )
+    reply_to = models.ForeignKey(
+        "self", verbose_name="reply", on_delete=models.CASCADE, null=True
+    )
     date_created = models.DateTimeField(auto_now_add=True)
     date_updated = models.DateTimeField(auto_now=True)
+
+    objects = CommentQuerySet.as_manager()
 
     class Meta:
         """ comment model meta properties """
@@ -254,3 +259,21 @@ class UserCategory(models.Model):
     def __str__(self):
         """ overiding str mehtod for class """
         return "User: {}, Category: {}".format(self.user.first_name, self.category.name)
+
+
+class CommentImage(models.Model):
+    image = models.ImageField(
+        verbose_name="Image", upload_to="comment_image_uploads/", blank=True
+    )
+    upload_for = models.ForeignKey(
+        Comment,
+        verbose_name="Comment Linked to",
+        related_name="comment_images",
+        on_delete=models.CASCADE,
+    )
+
+    class Meta:
+        pass
+
+    def __str__(self):
+        return self.image.name
