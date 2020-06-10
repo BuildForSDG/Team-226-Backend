@@ -5,10 +5,12 @@ from drf_yasg.utils import swagger_auto_schema
 from rest_framework import generics, status
 from rest_framework.decorators import api_view
 from rest_framework.parsers import FormParser, MultiPartParser
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from resources.models import Category, Comment, Land, List, ListPost, Post
+from resources.models import Category, Post, Land, List, ListPost, Comment
+from resources.permissions import ResourcesAnonymousAccessPermission
 from resources.serializers import (
     CategorySerializer,
     CategorySerializerForDocs,
@@ -34,6 +36,8 @@ class LandListCreate(generics.ListCreateAPIView):
 
     response = '{"response": "success", "message": "land created succesfully"}'
     serializer_class = LandSerializer
+
+    permission_classes = [IsAuthenticated | ResourcesAnonymousAccessPermission]
 
     def get_queryset(self):
         return Land.objects.get_all_lands(self.request.data.get("owner"))
@@ -76,6 +80,7 @@ class CategoryListCreate(generics.ListCreateAPIView):
 
     response = '{"response": "success", "message": "category created succesfully"}'
     serializer_class = CategorySerializer
+    permission_classes = [IsAuthenticated | ResourcesAnonymousAccessPermission]
 
     def get_queryset(self):
         return Category.objects.get_all_categories(self.request.data.get("owner"))
@@ -238,6 +243,7 @@ class PostListCreate(generics.ListCreateAPIView):
 
     response = '{"response": "success", "message": "post created succesfully"}'
     serializer_class = PostSerializer
+    permission_classes = [IsAuthenticated | ResourcesAnonymousAccessPermission]
 
     def get_queryset(self):
         return Post.objects.get_all_posts(self.request.data.get("created_by"))
@@ -377,6 +383,7 @@ class CommentListCreate(generics.ListCreateAPIView):
 
     response = '{"response": "success", "message": "comment created succesfully"}'
     serializer_class = CommentSerializer
+    permission_classes = [IsAuthenticated | ResourcesAnonymousAccessPermission]
 
     def get_queryset(self):
         return Comment.objects.get_comments_for_post(self.kwargs.get("post_id"))
