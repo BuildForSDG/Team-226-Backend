@@ -24,9 +24,7 @@ class TestTokenAPI(APITestCase):
 
     # retrieve token
     def test_get_tokens(self):
-        """
-            get both the access and refresh tokens
-        """
+        """ get both the access and refresh tokens """
         response = self.client.post("/api/auth/token/", data=self.data)
         self.access_token = response.data["access"]
         self.refresh_token = response.data["refresh"]
@@ -35,18 +33,14 @@ class TestTokenAPI(APITestCase):
         assert "refresh" in response.data
 
     def test_refresh_token(self):
-        """
-            uses the refresh token to get a new access token
-        """
+        """ uses the refresh token to get a new access token """
         data = {"refresh": self.refresh_token}
         response = self.client.post("/api/auth/token/refresh/", data)
         assert response.status_code == status.HTTP_200_OK
         assert "access" in response.data
 
     def test_verify_token(self):
-        """
-            verifies the access token if it's still valid
-        """
+        """ verifies the access token if it's still valid """
         data = {"token": self.access_token}
         response = self.client.post("/api/auth/token/verify/", data)
         assert response.status_code == status.HTTP_200_OK

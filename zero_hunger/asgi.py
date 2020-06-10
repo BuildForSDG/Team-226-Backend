@@ -1,10 +1,9 @@
-"""
-ASGI config for zero_hunger project.
+""" ASGI config for zero_hunger project.
 
-It exposes the ASGI callable as a module-level variable named ``application``.
+    It exposes the ASGI callable as a module-level variable named ``application``.
 
-For more information on this file, see
-https://docs.djangoproject.com/en/3.0/howto/deployment/asgi/
+    For more information on this file, see
+    https://docs.djangoproject.com/en/3.0/howto/deployment/asgi/
 """
 
 import os

@@ -25,36 +25,36 @@ class ListModelTest(TestCase):
         )
 
     def test_title_label(self):
-        list = List.objects.first()
-        field_label = list._meta.get_field("title").verbose_name
+        test_list = List.objects.first()
+        field_label = test_list._meta.get_field("title").verbose_name
         assert field_label == "List title"
 
     def test_title_max_length(self):
-        list = List.objects.first()
-        max_length = list._meta.get_field("title").max_length
+        test_list = List.objects.first()
+        max_length = test_list._meta.get_field("title").max_length
         assert max_length == 255
 
     def test_object_title_is_valid(self):
-        list = List.objects.first()
-        expected_object_title = f"{list.title}"
-        assert expected_object_title == str(list)
+        test_list = List.objects.first()
+        expected_object_title = f"{test_list.title}"
+        assert expected_object_title == str(test_list)
 
     def test_description_label(self):
-        list = List.objects.first()
-        field_label = list._meta.get_field("description").verbose_name
+        test_list = List.objects.first()
+        field_label = test_list._meta.get_field("description").verbose_name
         assert field_label == "Description of the List"
 
     def test_cover_image_label(self):
-        list = List.objects.first()
-        field_label = list._meta.get_field("cover_image").verbose_name
+        test_list = List.objects.first()
+        field_label = test_list._meta.get_field("cover_image").verbose_name
         assert field_label == "Cover image"
 
     def test_visibility_label(self):
-        list = List.objects.first()
-        field_label = list._meta.get_field("visibility").verbose_name
+        test_list = List.objects.first()
+        field_label = test_list._meta.get_field("visibility").verbose_name
         assert field_label == "Visible to"
 
     def test_visibility_max_length(self):
-        list = List.objects.first()
-        max_length = list._meta.get_field("visibility").max_length
+        test_list = List.objects.first()
+        max_length = test_list._meta.get_field("visibility").max_length
         assert max_length == 30

@@ -14,6 +14,8 @@ class UserSerializer(serializers.ModelSerializer):
     profile_photo = serializers.CharField(required=False)
 
     class Meta:
+        """ user serializer meta properties """
+
         model = User
         fields = [
             "id",
@@ -72,6 +74,8 @@ class UserSerializerWithToken(serializers.ModelSerializer):
         return user
 
     class Meta:
+        """ user serializer with jwt token meta properties """
+
         model = User
         fields = [
             "id",

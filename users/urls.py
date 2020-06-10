@@ -1,7 +1,12 @@
 from django.urls import include, path
 from rest_framework import routers
 
-from .views import CreateUserView, UserViewSet, AddUserCategory, DeleteUserCategory
+from .views import (
+    AddUserCategory,
+    CreateUserView,
+    DeleteUserCategory,
+    UserViewSet,
+)
 
 router = routers.DefaultRouter()
 router.register(r"user", UserViewSet)

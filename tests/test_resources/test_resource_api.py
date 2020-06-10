@@ -2,7 +2,7 @@ from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase
 
-from resources.models import Land, Post, List, Category, Comment
+from resources.models import Category, Comment, Land, List, Post
 from tests.helpers import TestSetupData
 from users.models import User
 

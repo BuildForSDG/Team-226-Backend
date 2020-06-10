@@ -3,8 +3,10 @@ from django.contrib.auth.forms import UserChangeForm, UserCreationForm
 from .models import User
 
 
-class UserCreationForm(UserCreationForm):
-    class Meta(UserCreationForm):
+class CustomUserCreationForm(UserCreationForm):
+    class Meta:
+        """ user change form meta properties """
+
         model = User
         fields = (
             "email",
@@ -21,8 +23,10 @@ class UserCreationForm(UserCreationForm):
         )
 
 
-class UserChangeForm(UserChangeForm):
-    class Meta(UserChangeForm):
+class CustomUserChangeForm(UserChangeForm):
+    class Meta:
+        """ user change form meta properties """
+
         model = User
         fields = (
             "email",

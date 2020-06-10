@@ -16,16 +16,12 @@ class TestAuthAPI(APITestCase):
         self.user = self.client.post("/api/auth/register/", data=self.data)
 
     def test_user_login(self):
-        """
-            test user login
-        """
+        """ test user login """
         response = self.client.post("/api/auth/login/", data=self.data)
         assert response.status_code == status.HTTP_200_OK
 
     def test_user_registration(self):
-        """
-            test user registration
-        """
+        """ test user registration """
         data = {
             "email": "test2@test.com",
             "password": "secret",

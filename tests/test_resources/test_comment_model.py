@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from resources.models import Comment, Post, Category
+from resources.models import Category, Comment, Post
 from users.models import User
 
 

@@ -2,7 +2,6 @@ A one-liner phrase describing this project or app
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/264f6e889f5c4493a4a6a5ed439c24da)](https://app.codacy.com/gh/BuildForSDG/Team-226-Backend?utm_source=github.com&utm_medium=referral&utm_content=BuildForSDG/Team-226-Backend&utm_campaign=Badge_Grade_Settings)
 
-
 ## About
 
 We are building a solution which solves the problem of hunger by addressing needs of farmers and other players in the agric section
@@ -31,25 +30,24 @@ You should have **Python 3.5+** and **git** installed.
 1. Clone the repo you've created from the template herein and change into the directory
 
     ``
-    git clone <Your Repository>
+      git clone <Your Repository>
     ``
 
 2. Change into repo directory
 
     ``
-    cd <repo_name>
+      cd <repo_name>
     ``
 
 3. Setup virtual env, activate it, install dependencies and setup environment variables
     ``
-    virtualenv venv
+      virtualenv venv
 
-    . venv/bin/activate
+      . venv/bin/activate
 
-    pip install -r requirements.txt
+      pip install -r requirements.txt
 
-    cp .env.sample .env
-
+      cp .env.sample .env
     ``
 
 4. Install poetry, a dependecy manager for python.
@@ -57,7 +55,7 @@ You should have **Python 3.5+** and **git** installed.
     On windows, you will need powershell to install it:
 
     ``
-    (Invoke-WebRequest -Uri https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py -UseBasicParsing).Content | python
+      (Invoke-WebRequest -Uri https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py -UseBasicParsing).Content | python
     ``
 
     After that you will need to restart the shell to make it operational.
@@ -67,26 +65,26 @@ You should have **Python 3.5+** and **git** installed.
     On linux and other posix systems (mac included):
 
     ``
-    curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python
+      curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python
     ``
 
     &nbsp;
 
     To check that it is correctly installed, you can check the version:
     ``
-    poetry --version
+      poetry --version
     ``
 
     May be the latest stable version is not installed with the installation script, to update poetry, you can run:
 
     ``
-    poetry self update
+      poetry self update
     ``
 
 5. With poetry installed, you should install project dependecies by running:
 
     ``
-    poetry install
+      poetry install
     ``
 
     This will install all the dependencies for running the project including pytest for running tests and flake8, linter for your project.

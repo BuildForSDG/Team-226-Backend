@@ -3,32 +3,30 @@ from collections import OrderedDict
 from django.http import Http404
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework import generics, status
-
-# Create your views here.
 from rest_framework.decorators import api_view
-from rest_framework.parsers import MultiPartParser, FormParser
+from rest_framework.parsers import FormParser, MultiPartParser
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from resources.models import Land, Category, Post, List, ListPost, Comment
+from resources.models import Category, Post, Land, List, ListPost, Comment
 from resources.permissions import ResourcesAnonymousAccessPermission
 from resources.serializers import (
-    LandSerializer,
-    LandImageSerializer,
     CategorySerializer,
-    PostSerializer,
-    PostImageSerializer,
     CategorySerializerForDocs,
-    LandSerializerForDocs,
-    PostSerializerForDocs,
-    ListSerializer,
-    ListSerializerForDocs,
-    ListPostSerializer,
-    ListPostSerializerForDocs,
+    CommentImageSerializer,
     CommentSerializer,
     CommentSerializerForDocs,
-    CommentImageSerializer,
+    LandImageSerializer,
+    LandSerializer,
+    LandSerializerForDocs,
+    ListPostSerializer,
+    ListPostSerializerForDocs,
+    ListSerializer,
+    ListSerializerForDocs,
+    PostImageSerializer,
+    PostSerializer,
+    PostSerializerForDocs,
 )
 
 
