@@ -56,7 +56,8 @@ class LandListCreate(generics.ListCreateAPIView):
                                 """,
     )
     def post(self, request, *args, **kwargs):
-        request.data._mutable = True
+        if type(request.data) is not dict:
+            request.data._mutable = True
         request.data["owner"] = request.user.id
         return super(LandListCreate, self).post(request, *args, **kwargs)
 
@@ -94,7 +95,8 @@ class CategoryListCreate(generics.ListCreateAPIView):
         operation_description="""Create a Category""",
     )
     def post(self, request, *args, **kwargs):
-        request.data._mutable = True
+        if type(request.data) is not dict:
+            request.data._mutable = True
         request.data["created_by"] = request.user.id
         return super(CategoryListCreate, self).post(request, *args, **kwargs)
 
@@ -116,7 +118,8 @@ class LandUpdateDelete(generics.RetrieveUpdateDestroyAPIView):
         operation_description="""Update or delete a land""",
     )
     def put(self, request, *args, **kwargs):
-        request.data._mutable = True
+        if type(request.data) is not dict:
+            request.data._mutable = True
         request.data["owner"] = request.user.id
         return super(LandUpdateDelete, self).put(request, *args, **kwargs)
 
